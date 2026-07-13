@@ -19,6 +19,7 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Moon,
   Palette,
   Phone,
   Plug,
@@ -28,6 +29,7 @@ import {
   Smartphone,
   Sparkles,
   Star,
+  Sun,
   Twitter,
   Workflow,
   Zap,
@@ -66,6 +68,30 @@ const NAV = [
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
+
+function ThemeToggle() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"));
+  }, []);
+
+  const toggleTheme = () => {
+    const isDarkMode = document.documentElement.classList.toggle("dark");
+    setIsDark(isDarkMode);
+    localStorage.theme = isDarkMode ? "dark" : "light";
+  };
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#4093FE]/30 text-[#4093FE] hover:bg-[#4093FE]/10 transition-colors shadow-sm"
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -110,6 +136,7 @@ function Nav() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <a
               href="#contact"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[#4093FE] text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
@@ -1110,25 +1137,52 @@ function Contact() {
                 with a plan, a timeline and a quote.
               </p>
 
-              <div className="mt-8 space-y-3 text-sm">
-                <div className="flex items-center gap-3 opacity-90">
-                  <Mail className="h-4 w-4 text-primary-glow" />
-                  hello@codebucket.io
+              <div className="mt-8 space-y-4 text-sm">
+                {/* <div className="flex items-center gap-3 opacity-90">
+                  <Mail className="h-4 w-4 text-primary-glow shrink-0" />
+                  <a href="mailto:hello@codebucket.io" className="hover:text-primary transition-colors">hello@codebucket.io</a>
+                </div> */}
+                <div className="flex items-start gap-3 opacity-90">
+                  <Phone className="h-4 w-4 text-primary-glow shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-1.5">
+                    <a href="tel:+919901068874" className="hover:text-primary transition-colors">+91 99010 68874</a>
+                    <a href="tel:+918088319141" className="hover:text-primary transition-colors">+91 8088319141</a>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 opacity-90">
-                  <Phone className="h-4 w-4 text-primary-glow" />
-                  +1 (415) 555-0139
+                  <MessageCircle className="h-4 w-4 text-primary-glow shrink-0" />
+                  <a href="https://wa.me/919901068874" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                    Connect on WhatsApp
+                  </a>
                 </div>
-                <div className="flex items-center gap-3 opacity-90">
-                  <MapPin className="h-4 w-4 text-primary-glow" />
+                {/* <div className="flex items-center gap-3 opacity-90">
+                  <MapPin className="h-4 w-4 text-primary-glow shrink-0" />
                   Remote-first · Serving teams globally
-                </div>
+                </div> */}
               </div>
             </div>
 
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const name = formData.get("name") as string;
+                const company = formData.get("company") as string;
+                const email = formData.get("email") as string;
+                const phone = formData.get("phone") as string;
+                const budget = formData.get("budget") as string;
+                const service = formData.get("service") as string;
+                const message = formData.get("message") as string;
+
+                const text = `*New Project Inquiry*
+*Name:* ${name}
+${company ? `*Company:* ${company}\n` : ""}*Email:* ${email}
+${phone ? `*Phone:* ${phone}\n` : ""}${budget ? `*Budget:* ${budget}\n` : ""}${service ? `*Service:* ${service}\n` : ""}
+*Message:*
+${message}`;
+
+                const encodedText = encodeURIComponent(text);
+                window.open(`https://wa.me/919901068874?text=${encodedText}`, "_blank");
                 setSent(true);
               }}
               className="rounded-2xl bg-background text-foreground p-6 sm:p-8"
@@ -1156,6 +1210,7 @@ function Contact() {
                   <div className="mt-4">
                     <label className="text-xs font-medium text-muted-foreground">Message</label>
                     <textarea
+                      name="message"
                       required
                       rows={4}
                       placeholder="Tell us about your project…"
