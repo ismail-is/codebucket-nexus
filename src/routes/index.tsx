@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -7,6 +7,8 @@ import {
   Bot,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Cloud,
   Code2,
   Cpu,
@@ -65,7 +67,7 @@ const NAV = [
   { label: "Process", href: "#process" },
   // { label: "Portfolio", href: "#portfolio" },
   // { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  //{ label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -437,19 +439,16 @@ function MiniChart() {
 /* ---------------- Trusted By ---------------- */
 
 const LOGOS = [
-  "Northwind",
-  "Acme",
-  "Lumen",
-  "Vertex",
-  "Helio",
-  "Quanta",
-  "Nimbus",
-  "Orbital",
-  "Fabrik",
-  "Kite",
+  { src: "/client-lumetix.png", alt: "Lumetix" },
+  { src: "/client-srd.png", alt: "SRD" },
+  { src: "/client-cinemotion.png", alt: "Cinemotion" },
+  { src: "/client-azbazar.jpg", alt: "AZ Bazar" },
+  { src: "/client-mountain.jpeg", alt: "Mountain" },
+  { src: "/client-iconstudios.PNG", alt: "Icon Studios" },
 ];
 
 function TrustedBy() {
+  const marqueeLogos = [...LOGOS, ...LOGOS, ...LOGOS];
   return (
     <section className="py-14 border-y border-border bg-secondary/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -458,17 +457,21 @@ function TrustedBy() {
         </p>
         <div className="mt-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
           <motion.div
-            className="flex gap-14 whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="flex gap-10 items-center"
+            animate={{ x: ["0%", "-33.333%"] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
           >
-            {[...LOGOS, ...LOGOS].map((l, i) => (
-              <span
+            {marqueeLogos.map((logo, i) => (
+              <div
                 key={i}
-                className="text-2xl font-bold text-muted-foreground/70 tracking-tight"
+                className="flex-shrink-0 bg-white rounded-xl px-5 py-3 shadow-sm flex items-center justify-center"
               >
-                {l}
-              </span>
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
             ))}
           </motion.div>
         </div>
@@ -564,7 +567,7 @@ function Services() {
           subtitle="From strategy to launch and beyond — one partner across design, engineering, cloud and AI."
         />
 
-        <div className="mt-16 flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.title}
@@ -572,8 +575,8 @@ function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-              className="group rounded-2xl border border-border bg-card p-6 hover:shadow-glow hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 cursor-default sticky sm:relative top-28 sm:top-auto shadow-sm"
-              style={{ top: `calc(7rem + ${i * 4}px)` }}
+              className="group rounded-2xl border border-border bg-card p-4 sm:p-6 hover:shadow-glow hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 cursor-default shadow-sm relative sm:sticky sm:top-[var(--sticky-top)] lg:static"
+              style={{ "--sticky-top": `calc(7rem + ${i * 4}px)` } as React.CSSProperties}
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 style={{
@@ -582,18 +585,18 @@ function Services() {
                 }}
               />
               <div className="relative">
-                <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-elegant">
-                  <s.icon className="h-5 w-5 text-primary-foreground" />
+                <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-elegant">
+                  <s.icon className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
                 </div>
-                <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <h3 className="mt-3 sm:mt-5 text-sm sm:text-lg font-semibold leading-snug">{s.title}</h3>
+                <p className="hidden sm:block mt-2 text-sm text-muted-foreground leading-relaxed">
                   {s.desc}
                 </p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
+                <div className="mt-2 sm:mt-4 flex flex-wrap gap-1">
                   {s.tags.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground border border-border rounded-full px-2 py-0.5"
+                      className="text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-muted-foreground border border-border rounded-full px-1.5 sm:px-2 py-0.5"
                     >
                       {t}
                     </span>
@@ -601,7 +604,7 @@ function Services() {
                 </div>
                 <a
                   href="#contact"
-                  className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                  className="hidden sm:inline-flex mt-5 items-center gap-1 text-sm font-medium text-primary opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
                 >
                   Learn more <ArrowRight className="h-3.5 w-3.5" />
                 </a>
@@ -611,6 +614,7 @@ function Services() {
         </div>
       </div>
     </section>
+
   );
 }
 
@@ -662,10 +666,10 @@ function Why() {
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <BigStat value="100+" label="Projects Delivered" />
-          <BigStat value="50+" label="Happy Clients" />
+          <BigStat value="20+" label="Projects Delivered" />
+          <BigStat value="7+" label="Happy Clients" />
           <BigStat value="99%" label="Satisfaction" />
-          <BigStat value="12+" label="Countries" />
+          <BigStat value="2+" label="Countries" />
           <BigStat value="8s" label="Avg. Deploy" />
           <BigStat value="24×7" label="Support" />
         </div>
@@ -863,32 +867,56 @@ function Tech() {
 
 const TESTIMONIALS = [
   {
-    name: "Priya Nair",
-    role: "Founder, Helio",
+    name: "Sajeel",
+    role: "Founder, Lumetix",
     quote:
-      "CodeBucket rebuilt our storefront in six weeks and doubled our conversion rate. They feel like part of our team.",
+      "Working with this team made managing our course platform much easier. They delivered everything on time and provided great support whenever we needed help.",
   },
   {
-    name: "Marcus Bell",
-    role: "COO, Orbital",
+    name: "Bilal Rahman",
+    role: "Founder, SRD",
     quote:
-      "The automation work alone paid for itself in the first month. Rare combination of taste and engineering rigor.",
+      "Our new website looks modern and works flawlessly across all devices. We've received positive feedback from students since the launch",
   },
   {
-    name: "Aisha Rahman",
-    role: "CTO, Fabrik AI",
+    name: "Sajid",
+    role: "Manager, AZ Bazar",
     quote:
-      "They shipped our RAG pipeline in production faster than our internal team could scope it. Highly recommend.",
+      "They created a clean and easy-to-use website that makes it simple for our customers to browse products and promotions. The entire project was completed on time with excellent support.",
   },
   {
-    name: "Daniel Ross",
-    role: "PM, Nimbus",
+    name: "Razik",
+    role: "Admin, Mountain Rentals",
     quote:
-      "Beautiful dashboards, thoughtful UX, and a team that pushes back when it matters. Exactly what we needed.",
+      "They transformed our online presence with a professional website and a strong brand identity. The workflow automation they implemented has saved our team valuable time every day.",
   },
 ];
 
+function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
+  return (
+    <blockquote className="rounded-2xl border border-border bg-card p-7 shadow-card h-full">
+      <div className="flex gap-0.5 text-warning">
+        {Array.from({ length: 5 }).map((_, s) => (
+          <Star key={s} className="h-4 w-4 fill-current" />
+        ))}
+      </div>
+      <p className="mt-4 text-lg leading-relaxed text-foreground">"{t.quote}"</p>
+      <footer className="mt-6 flex items-center gap-3">
+        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-primary-glow" />
+        <div>
+          <div className="text-sm font-semibold">{t.name}</div>
+          <div className="text-xs text-muted-foreground">{t.role}</div>
+        </div>
+      </footer>
+    </blockquote>
+  );
+}
+
 function Testimonials() {
+  const [active, setActive] = useState(0);
+  const prev = () => setActive((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  const next = () => setActive((i) => (i + 1) % TESTIMONIALS.length);
+
   return (
     <section className="py-24 bg-secondary/40 border-y border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -896,31 +924,70 @@ function Testimonials() {
           eyebrow="Testimonials"
           title="Loved by founders and product teams."
         />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+
+        {/* Desktop grid */}
+        <div className="mt-12 hidden md:grid gap-5 md:grid-cols-2">
           {TESTIMONIALS.map((t, i) => (
-            <motion.blockquote
+            <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="rounded-2xl border border-border bg-card p-7 shadow-card"
             >
-              <div className="flex gap-0.5 text-warning">
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <p className="mt-4 text-lg leading-relaxed text-foreground">"{t.quote}"</p>
-              <footer className="mt-6 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-primary-glow" />
-                <div>
-                  <div className="text-sm font-semibold">{t.name}</div>
-                  <div className="text-xs text-muted-foreground">{t.role}</div>
-                </div>
-              </footer>
-            </motion.blockquote>
+              <TestimonialCard t={t} />
+            </motion.div>
           ))}
+        </div>
+
+        {/* Mobile slideshow */}
+        <div className="mt-10 md:hidden">
+          <div className="relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <TestimonialCard t={TESTIMONIALS[active]} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Controls */}
+          <div className="mt-6 flex items-center justify-between">
+            <button
+              onClick={prev}
+              aria-label="Previous testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card hover:border-primary hover:text-primary transition-colors"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            {/* Dots */}
+            <div className="flex gap-2">
+              {TESTIMONIALS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === active ? "w-6 bg-primary" : "w-2 bg-border"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              aria-label="Next testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card hover:border-primary hover:text-primary transition-colors"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -1145,8 +1212,9 @@ function Contact() {
                 <div className="flex items-start gap-3 opacity-90">
                   <Phone className="h-4 w-4 text-primary-glow shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-1.5">
-                    <a href="tel:+919901068874" className="hover:text-primary transition-colors">+91 99010 68874</a>
+                    <a href="tel:+919901068874" className="hover:text-primary transition-colors">+91 9901068874</a>
                     <a href="tel:+918088319141" className="hover:text-primary transition-colors">+91 8088319141</a>
+                    <a href="tel:+966576720313" className="hover:text-primary transition-colors">+966 576720313</a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 opacity-90">
@@ -1200,11 +1268,11 @@ ${message}`;
               ) : (
                 <>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <Field label="Name" name="name" placeholder="Jane Doe" required />
-                    <Field label="Company" name="company" placeholder="Acme Inc." />
-                    <Field label="Email" name="email" type="email" placeholder="jane@acme.com" required />
-                    <Field label="Phone" name="phone" placeholder="+1 555 0100" />
-                    <Field label="Budget" name="budget" placeholder="$5k – $20k" />
+                    <Field label="Name" name="name" placeholder="Full Name" required />
+                    <Field label="Company" name="company" placeholder="abc Inc." />
+                    <Field label="Email" name="email" type="email" placeholder="[EMAIL_ADDRESS]" required />
+                    <Field label="Phone" name="phone" placeholder="+966 123456789" />
+                    {/*<Field label="Budget" name="budget" placeholder="$5k – $20k" />*/}
                     <Field label="Service" name="service" placeholder="Website / App / AI" />
                   </div>
                   <div className="mt-4">
@@ -1399,7 +1467,7 @@ function Landing() {
       {/* <Tech /> */}
       <Testimonials />
       {/* <Pricing /> */}
-      <FAQ />
+      {/*<FAQ />*/}
       <Contact />
       <Footer />
       <FloatingButtons />
