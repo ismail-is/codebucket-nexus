@@ -58,6 +58,7 @@ export const Route = createFileRoute("/")({
 /* ---------------- Nav ---------------- */
 
 const NAV = [
+  { label: "About Us", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   // { label: "Portfolio", href: "#portfolio" },
@@ -88,19 +89,21 @@ function Nav() {
         }`}
       >
         <div
-          className={`flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3 transition-all ${
-            scrolled ? "glass shadow-card" : "bg-transparent"
+          className={`flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3 transition-all duration-500 border bg-white shadow-card ${
+            scrolled 
+              ? "shadow-glow border-[#4093FE]/30" 
+              : "border-border/40"
           }`}
         >
           <a href="#top" className="flex items-center gap-2">
-            <img src="/logo.png" alt="CodeBucket" className="h-10 sm:h-12 md:h-16 w-auto" />
+            <img src="/logo.png" alt="CodeBucket" className="h-16 md:h-20 w-auto object-contain" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-semibold text-[#4093FE] hover:opacity-80 transition-opacity"
               >
                 {n.label}
               </a>
@@ -109,13 +112,13 @@ function Nav() {
           <div className="flex items-center gap-2">
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-foreground text-background px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[#4093FE] text-white px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
             >
               Start Project <ArrowRight className="h-4 w-4" />
             </a>
             <button
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border"
+              className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#4093FE]/30 text-[#4093FE]"
               aria-label="Menu"
             >
               <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
@@ -123,7 +126,7 @@ function Nav() {
           </div>
         </div>
         {open && (
-          <div className="md:hidden mt-2 glass rounded-2xl p-4 flex flex-col gap-3">
+          <div className="md:hidden mt-2 bg-white rounded-2xl p-4 flex flex-col gap-3 shadow-card border border-[#4093FE]/10">
             {NAV.map((n) => {
               if (n.label.startsWith("//")) return null;
               return (
@@ -131,7 +134,7 @@ function Nav() {
                   key={n.href}
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="text-base font-medium text-foreground py-2 border-b border-border/50 last:border-0"
+                  className="text-base font-semibold text-[#4093FE] py-2 border-b border-[#4093FE]/10 last:border-0"
                 >
                   {n.label}
                 </a>
@@ -140,7 +143,7 @@ function Nav() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-foreground text-background px-4 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#4093FE] text-white px-4 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
             >
               Start Project <ArrowRight className="h-4 w-4" />
             </a>
@@ -331,7 +334,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-6 top-16 glass rounded-2xl px-3 py-2 shadow-card flex items-center gap-2"
+        className="hidden md:flex absolute -left-6 top-16 glass rounded-2xl px-3 py-2 shadow-card items-center gap-2"
       >
         <div className="h-8 w-8 rounded-lg bg-success/15 flex items-center justify-center">
           <Zap className="h-4 w-4 text-success" />
@@ -344,7 +347,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [0, 12, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-4 bottom-14 glass rounded-2xl px-3 py-2 shadow-card flex items-center gap-2"
+        className="hidden md:flex absolute -right-4 bottom-14 glass rounded-2xl px-3 py-2 shadow-card items-center gap-2"
       >
         <div className="h-8 w-8 rounded-lg bg-primary/15 flex items-center justify-center">
           <Bot className="h-4 w-4 text-primary" />
@@ -602,23 +605,30 @@ const WHY = [
 
 function Why() {
   return (
-    <section className="py-24 bg-secondary/40 border-y border-border">
+    <section id="about" className="py-24 bg-secondary/40 border-y border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-14 items-center">
         <div>
           <SectionHeading
             align="left"
-            eyebrow="Why CodeBucket"
+            eyebrow="About Us"
             title="A studio-grade team, at the speed of a startup."
             subtitle="We're the partner ambitious founders and product teams call when quality, velocity and long-term thinking all matter."
           />
           <div className="mt-8 grid sm:grid-cols-2 gap-2.5">
-            {WHY.map((w) => (
-              <div key={w} className="flex items-center gap-2 text-sm">
-                <span className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+            {WHY.map((w, i) => (
+              <motion.div 
+                key={w} 
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+                className="flex items-center gap-2 text-sm group cursor-default"
+              >
+                <span className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-glow">
                   <Check className="h-3 w-3" />
                 </span>
-                <span className="font-medium">{w}</span>
-              </div>
+                <span className="font-medium group-hover:text-primary transition-colors">{w}</span>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -643,12 +653,13 @@ function BigStat({ value, label }: { value: string; label: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="rounded-2xl border border-border bg-card p-5 text-center"
+      className="rounded-2xl border border-border bg-card p-5 text-center hover:shadow-glow hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 cursor-default group relative overflow-hidden"
     >
-      <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="relative text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient group-hover:scale-110 transition-transform duration-300">
         {value}
       </div>
-      <div className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
+      <div className="relative mt-1 text-xs text-muted-foreground uppercase tracking-wider">
         {label}
       </div>
     </motion.div>
@@ -683,20 +694,20 @@ function Process() {
             {PROCESS.map((p, i) => (
               <motion.div
                 key={p.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="relative"
+                transition={{ duration: 0.5, type: "spring", delay: i * 0.1 }}
+                className="relative group cursor-default"
               >
-                <div className="mx-auto h-12 w-12 rounded-full bg-background border border-border flex items-center justify-center shadow-card relative z-10">
-                  <p.icon className="h-5 w-5 text-primary" />
+                <div className="mx-auto h-12 w-12 rounded-full bg-background border border-border flex items-center justify-center shadow-card relative z-10 group-hover:scale-125 group-hover:bg-primary group-hover:border-primary group-hover:shadow-glow transition-all duration-500">
+                  <p.icon className="h-5 w-5 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
                 </div>
-                <div className="mt-4 text-center">
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                <div className="mt-6 text-center bg-card rounded-2xl p-4 border border-border/40 group-hover:border-primary/30 group-hover:shadow-card transition-all duration-500 group-hover:-translate-y-1">
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground group-hover:text-primary/70 transition-colors">
                     Step {i + 1}
                   </div>
-                  <div className="mt-1 font-semibold text-sm">{p.title}</div>
+                  <div className="mt-2 font-semibold text-sm group-hover:text-primary transition-colors">{p.title}</div>
                   <div className="mt-1 text-xs text-muted-foreground leading-relaxed">
                     {p.desc}
                   </div>
@@ -1329,7 +1340,7 @@ function Landing() {
       <Why />
       <Process />
       {/* <Portfolio /> */}
-      <Tech />
+      {/* <Tech /> */}
       <Testimonials />
       {/* <Pricing /> */}
       <FAQ />
