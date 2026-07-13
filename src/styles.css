@@ -125,3 +125,22 @@
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border: 1px solid color-mix(in oklab, var(--color-border) 80%, transparent);
 }
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px -3px color-mix(in oklab, var(--color-primary) 50%, transparent); }
+  50% { box-shadow: 0 0 30px 2px color-mix(in oklab, var(--color-primary-glow) 70%, transparent); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite;
+}

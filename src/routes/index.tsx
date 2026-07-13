@@ -32,7 +32,6 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import logoAsset from "@/assets/codebucket-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,8 +60,8 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Pricing", href: "#pricing" },
+  // { label: "Portfolio", href: "#portfolio" },
+  // { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
@@ -94,7 +93,7 @@ function Nav() {
           }`}
         >
           <a href="#top" className="flex items-center gap-2">
-            <img src={logoAsset.url} alt="CodeBucket" className="h-8 w-auto" />
+            <img src="/logo.png" alt="CodeBucket" className="h-16 w-auto" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map((n) => (
@@ -216,7 +215,7 @@ function Hero() {
           >
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold shadow-elegant hover:shadow-glow transition-all"
+              className="group inline-flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-semibold shadow-elegant hover:shadow-glow hover:scale-105 transition-all duration-300 animate-pulse-glow"
             >
               Start Your Project
               <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -265,7 +264,7 @@ function Hero() {
 
 function HeroVisual() {
   return (
-    <div className="relative">
+    <div className="relative animate-float">
       <div
         className="absolute -inset-8 rounded-[2rem] bg-gradient-to-br from-primary/30 to-primary-glow/20 blur-3xl -z-10"
         aria-hidden
@@ -533,7 +532,7 @@ function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-              className="group relative rounded-2xl border border-border bg-card p-6 hover:shadow-card transition-all hover:-translate-y-1"
+              className="group relative rounded-2xl border border-border bg-card p-6 hover:shadow-glow hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 cursor-default"
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 style={{
@@ -1198,7 +1197,7 @@ function Footer() {
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
-          <img src={logoAsset.url} alt="CodeBucket" className="h-8 w-auto" />
+          <img src="/logo.png" alt="CodeBucket" className="h-16 w-auto" />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
             CodeBucket is a premium software studio helping teams build, scale
             and automate with modern technology.
@@ -1218,7 +1217,7 @@ function Footer() {
         </div>
         <FooterCol
           title="Company"
-          links={["About", "Services", "Portfolio", "Blog", "Careers", "Contact"]}
+          links={["About", "Services", "Blog", "Careers", "Contact"]}
         />
         <FooterCol
           title="Legal"
@@ -1295,20 +1294,11 @@ function FloatingButtons() {
 
   return (
     <>
-      <a
-        href="https://wa.me/14155550139"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="WhatsApp"
-        className="fixed bottom-6 right-6 z-40 h-13 w-13 h-14 w-14 rounded-full bg-success text-white shadow-elegant flex items-center justify-center hover:scale-105 transition-transform"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </a>
       {show && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed bottom-24 right-6 z-40 h-11 w-11 rounded-full bg-foreground text-background shadow-card flex items-center justify-center hover:opacity-90 transition-opacity"
+          className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full bg-foreground text-background shadow-card flex items-center justify-center hover:opacity-90 transition-opacity"
         >
           <ArrowUp className="h-5 w-5" />
         </button>
@@ -1328,10 +1318,10 @@ function Landing() {
       <Services />
       <Why />
       <Process />
-      <Portfolio />
+      {/* <Portfolio /> */}
       <Tech />
       <Testimonials />
-      <Pricing />
+      {/* <Pricing /> */}
       <FAQ />
       <Contact />
       <Footer />
