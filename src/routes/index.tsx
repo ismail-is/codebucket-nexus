@@ -93,7 +93,7 @@ function Nav() {
           }`}
         >
           <a href="#top" className="flex items-center gap-2">
-            <img src="/logo.png" alt="CodeBucket" className="h-16 w-auto" />
+            <img src="/logo.png" alt="CodeBucket" className="h-10 sm:h-12 md:h-16 w-auto" />
           </a>
           <nav className="hidden md:flex items-center gap-8">
             {NAV.map((n) => (
@@ -124,16 +124,26 @@ function Nav() {
         </div>
         {open && (
           <div className="md:hidden mt-2 glass rounded-2xl p-4 flex flex-col gap-3">
-            {NAV.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium text-foreground"
-              >
-                {n.label}
-              </a>
-            ))}
+            {NAV.map((n) => {
+              if (n.label.startsWith("//")) return null;
+              return (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  className="text-base font-medium text-foreground py-2 border-b border-border/50 last:border-0"
+                >
+                  {n.label}
+                </a>
+              );
+            })}
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-foreground text-background px-4 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              Start Project <ArrowRight className="h-4 w-4" />
+            </a>
           </div>
         )}
       </div>
@@ -1197,7 +1207,7 @@ function Footer() {
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
-          <img src="/logo.png" alt="CodeBucket" className="h-16 w-auto" />
+          <img src="/logo.png" alt="CodeBucket" className="h-12 md:h-16 w-auto" />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
             CodeBucket is a premium software studio helping teams build, scale
             and automate with modern technology.
