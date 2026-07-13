@@ -537,7 +537,7 @@ function Services() {
           subtitle="From strategy to launch and beyond — one partner across design, engineering, cloud and AI."
         />
 
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <motion.div
               key={s.title}
@@ -545,7 +545,8 @@ function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-              className="group relative rounded-2xl border border-border bg-card p-6 hover:shadow-glow hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 cursor-default"
+              className="group rounded-2xl border border-border bg-card p-6 hover:shadow-glow hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 cursor-default sticky sm:relative top-28 sm:top-auto shadow-sm"
+              style={{ top: `calc(7rem + ${i * 4}px)` }}
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 style={{
