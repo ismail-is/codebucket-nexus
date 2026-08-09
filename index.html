@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeBucket — Build. Scale. Automate.</title>
+    <meta name="description" content="CodeBucket builds premium websites, custom software, mobile apps, AI integrations and automation for startups and enterprises." />
+    <meta name="author" content="CodeBucket" />
+    <meta property="og:title" content="CodeBucket — Build. Scale. Automate." />
+    <meta property="og:description" content="Premium websites, software, AI and automation. We help businesses ship modern digital products faster." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CodeBucket" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montenegrin+Gothic+One&family=Poppins:wght@400;500;600;700;800;900&display=swap" />
+    <link rel="icon" href="/logo.png" type="image/png" />
+    <script>
+      try {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
