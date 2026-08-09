@@ -17,5 +17,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/", // Configure for GitHub pages if needed (e.g. "/repo-name/")
+  base: "/codebucket-nexus/", // Configure for GitHub pages if needed (e.g. "/repo-name/")
 });
